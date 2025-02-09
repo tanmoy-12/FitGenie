@@ -1,0 +1,195 @@
+<div class="main">
+  <div class="left-section">
+    <div class="logo">
+      <span style="color: #fff;"><span style="color: var(--shade-1);">FIT</span>GENIE</span>
+    </div>
+    <div class="menu">
+      <div class="welcome">
+        <span>Welcome,<br><span style="color: var(--shade-1);">{{ userName }}</span></span>
+      </div>
+      <li class="dashboard-active">
+        <img src="dashboard.png" alt="" width="20px" />&nbsp;&nbsp;
+        <p>Dashboard</p>
+      </li>
+      <a [routerLink]="['']"
+        ><li>
+          <i class="fa-solid fa-house"></i>&nbsp;&nbsp;
+          <p>Home</p>
+        </li></a
+      >
+      <li (click)="openDetails()">
+        <i class="fa-brands fa-slack"></i>&nbsp;&nbsp;
+        <p>Achievements</p>
+      </li>
+      <li (click)="logout()">
+        <i class="fa-solid fa-power-off"></i>&nbsp;&nbsp;
+        <p>Log Out</p>
+      </li>
+    </div>
+    <hr />
+  </div>
+  <div class="right-section">
+    <div class="heading">
+      <span>User Dashboard</span>
+    </div>
+    <div class="detailsPopup" *ngIf="isDetails">
+      <div class="popupContent">
+        <h4>Achievements</h4>
+        <div class="line"></div>
+        <ul *ngFor="let log of userActivaties">
+          <li>{{ log }}</li>
+        </ul>
+        <button (click)="closeDetails()">Close</button>
+      </div>
+    </div>
+    <div class="bmi">
+      <div class="bmi-container">
+        <div class="bmi-left">
+          <h1>BMI CALCULATOR</h1>
+          <Span>BMI is calculated as weight in kilograms divided by height in meters squared to classify body weight status.</Span>
+          <form #bmiForm="ngForm" (ngSubmit)="bmiCalculate()" class="bmiForm">
+            <div class="bmiCalculator">
+              <div class="form-bmi">
+                <label>Weight (kg): <input type="number" [(ngModel)]="userInput.weight" name="weight" required></label>
+
+              </div>
+
+              <div class="form-bmi">
+                <label>Height (cm): <input type="number" [(ngModel)]="userInput.height" name="height" required></label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!bmiForm.valid">Submit</button>
+          </form>
+        </div>
+        <div class="bmi-right">
+          <div class="spinner" *ngIf="isbmiLoading"></div>
+          <img src="https://th.bing.com/th/id/OIP.O0NScisRgcMHf4bPqnhvjwHaFj?rs=1&pid=ImgDetMain" alt="" *ngIf="!showBMIForm && !isbmiLoading && !isBMILoaded
+          ">
+          <div class="showBMIDetails" *ngIf="showBMIForm && !isbmiLoading && isBMILoaded">
+            <h3 class="bmi-r">Your BMI is: {{ bmiResult }}</h3>
+            <p *ngIf="bmiResult < 18.5">
+              You are underweight. Consider seeking medical attention.
+            </p>
+            <p *ngIf="bmiResult >= 18.5 && bmiResult < 25">
+              You are normal weight. You are in a healthy range.
+            </p>
+            <p *ngIf="bmiResult >= 25 && bmiResult < 30">
+              You are overweight. Consider seeking medical attention.
+            </p>
+            <p *ngIf="bmiResult >= 30">
+              You are obese. Consider seeking medical attention.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rcontainer">
+      <div class="r-left">
+        <h2>Workout Recommendation</h2>
+        <div class="line"></div>
+        <div>
+          <form (submit)="getRecommendations($event)">
+            <div class="group">
+              <label>Age: <input type="number" [(ngModel)]="userInput.age" name="age" required></label>
+
+              <label>Gender:
+                <select [(ngModel)]="userInput.gender" name="gender" required>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="group">
+              <label>Weight (kg): <input type="number" [(ngModel)]="userInput.weight" name="weight" required></label>
+
+              <label>Height (cm): <input type="number" [(ngModel)]="userInput.height" name="height" required></label>
+
+            </div>
+            <div class="group">
+              <label>Avg Heart Beats/ Min: <input type="number" [(ngModel)]="userInput.avg_bpm" name="avg_bpm" required></label>
+
+              <label>Experience Level (1-3): <input type="number" [(ngModel)]="userInput.experience_level" name="experience_level" required></label>
+
+            </div>
+            <div class="group">
+              <label>Workout Frequency (days per week): <input type="number" [(ngModel)]="userInput.workout_frequency" name="workout_frequency" required></label>
+
+              <!-- Medical Condition (Frontend Only, Not Sent to Backend) -->
+              <label>Medical Condition:
+                <select [(ngModel)]="userInput.medicalCondition" name="medicalCondition">
+                  <option value="">None</option>
+                  <option value="Heart Disease">Heart Disease</option>
+                  <option value="Diabetes">Diabetes</option>
+                  <option value="Hypertension">Hypertension</option>
+                  <option value="Osteoarthritis">Osteoarthritis</option>
+                  <option value="COPD">COPD</option>
+                  <option value="Diverticulosis">Diverticulosis</option>
+                </select>
+              </label>
+            </div>
+
+            <button type="submit" class="submit-btn">Get Recommendations</button>
+          </form>
+        </div>
+      </div>
+      <div class="r-right">
+        <div class="spinner" *ngIf="loading"></div>
+        <span *ngIf="!isShowing && !loading">Predict Workout</span>
+        <div *ngIf="isShowing && !loading">
+          <!-- Display recommendations -->
+          <div *ngIf="recommendations.length" class="predict">
+            <h3>Recommended Workouts</h3>
+            <ul>
+              <li *ngFor="let rec of recommendations">
+                <strong>{{ rec.recommended_workout }}</strong> <!--({{ rec.accuracy }}% accuracy)-->
+                <br>Duration: {{ rec.session_duration }} hours
+                <br>Calories Burned: {{ rec.calories_burned }} cal
+                <br>Water Intake: {{ rec.water_intake }} liters
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tracker-container">
+      <div class="t-left">
+        <img src="https://th.bing.com/th/id/OIP.LDvhJ0s_5Sh9bHyRy6nGQwHaE8?rs=1&pid=ImgDetMain" alt="">
+      </div>
+      <div class="t-right">
+        <h2>🌱 Eco-Friendly Activity Tracker</h2>
+
+        <form (submit)="addActivity(); $event.preventDefault()" class="aform">
+          <div class="ag">
+            <label for="activity">Select Activity:</label>
+            <select [(ngModel)]="selectedActivity" name="activity">
+              <option *ngFor="let activity of activities" [ngValue]="activity">
+                {{ activity.name }} ({{ activity.unit }})
+              </option>
+            </select>
+          </div>
+
+          <div class="ag">
+            <label for="quantity">Enter Quantity ({{ selectedActivity?.unit }}):</label>
+            <input type="number" [(ngModel)]="quantity" name="quantity" min="1" required />
+          </div>
+          <button type="submit" class="submit-btn-1">Log Activity</button>
+        </form>
+
+        <h4>Total CO₂ Reduction: <strong>{{ totalReduction.toFixed(2) }} kg</strong></h4>
+
+        <div *ngIf="logs.length > 0">
+          <h4>Logged Activities</h4>
+          <ul>
+            <li *ngFor="let log of logs">
+              ✅ {{ log.activity }} - {{ log.quantity }} {{ log.activity.includes('trees') ? 'trees' : 'km' }}
+              → Saved <strong>{{ log.reduction.toFixed(2) }} kg</strong> CO₂
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<app-footer></app-footer>

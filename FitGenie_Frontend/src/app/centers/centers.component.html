@@ -1,0 +1,130 @@
+<div class="navbar">
+  <app-navbar></app-navbar>
+</div>
+
+<div class="main">
+  <div class="left-section">
+    <h4>Filters</h4>
+
+    <!-- City Filter -->
+    <div class="filter">
+      <div class="form-title" (click)="toggleCheck(cityChecked, 'cityChecked')">
+        City<i class="fa-solid fa-angle-down"></i>
+      </div>
+      <div class="form-content" *ngIf="cityChecked">
+        <div *ngFor="let item of city" class="form-item">
+          <input
+            type="radio"
+            [id]="'city-' + item.name"
+            name="city"
+            (change)="updateFilter('city', item.name)"
+          />
+          <label [for]="'city-' + item.name">{{ item.name }}</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rating Filter -->
+    <div class="filter">
+      <div
+        class="form-title"
+        (click)="toggleCheck(ratingChecked, 'ratingChecked')"
+      >
+        Rating<i class="fa-solid fa-angle-down"></i>
+      </div>
+      <div class="form-content" *ngIf="ratingChecked">
+        <div *ngFor="let item of centerRating" class="form-item">
+          <input
+            type="radio"
+            [id]="'centerRating-' + item.value"
+            name="centerRating"
+            (change)="updateFilter('centerRating', item.value.toString())"
+          />
+          <label [for]="'centerRating-' + item.value">{{ item.value }}</label>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Days Availabe Filter -->
+    <div class="filter">
+      <div class="form-title" (click)="toggleCheck(daysChecked, 'daysChecked')">
+        Days Available <i class="fa-solid fa-angle-down"></i>
+      </div>
+      <div class="form-content" *ngIf="daysChecked">
+        <div *ngFor="let item of daysAvailable" class="form-item">
+          <input
+            type="radio"
+            [id]="'daysAvailable-' + item.value"
+            name="daysAvailable"
+            (change)="updateFilter('daysAvailable', item.value)"
+          />
+          <label [for]="'daysAvailable-' + item.value">{{ item.name }}</label>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Gym Type Filter -->
+    <div class="filter">
+      <div
+        class="form-title"
+        (click)="toggleCheck(typeChecked, 'typeChecked')"
+      >
+        Gym Type <i class="fa-solid fa-angle-down"></i>
+      </div>
+      <div class="form-content" *ngIf="typeChecked">
+        <div *ngFor="let item of centerType" class="form-item">
+          <input
+            type="radio"
+            [id]="'centerType-' + item.name"
+            name="centerType"
+            (change)="updateFilter('centerType', item.name)"
+          />
+          <label [for]="'centerType-' + item.name">{{ item.name }}</label>
+        </div>
+      </div>
+    </div>
+
+    <button class="clear" (click)="clearFilters()">Clear Filters</button>
+  </div>
+
+  <div class="right-section">
+    <h4>Available Gym Centers</h4>
+    <div *ngIf="gyms.length === 0" class="no-gyms">
+      No Gyms available.
+    </div>
+    <div *ngFor="let gym of gyms" class="gym-card">
+      <div class="gym-image">
+        <img
+          [src]="gym.images[0]"
+          alt="Gym's Image"
+        />
+      </div>
+      <div class="gym-details">
+        <h5>{{ gym.centerName }}</h5>
+        <p class="experience">
+          {{ gym.centerType }}
+        </p>
+        <p>{{ gym.registrationNumber }}</p>
+        <p class="qualification">{{ gym.availableInstruments.slice(0, 2).join(", ") }}...</p>
+
+        <p class="location">
+          <i class="fa-solid fa-location-dot"></i>&nbsp;{{ gym.address }},
+          {{ gym.city }}
+        </p>
+      </div>
+      <div class="gym-appointment">
+        <p class="availableDays">{{ gym.daysAvailable.join(" - ") }}</p>
+        <button
+          class="bookAppointment"
+          (click)="viewDetails(gym._id)"
+        >
+          View Details
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

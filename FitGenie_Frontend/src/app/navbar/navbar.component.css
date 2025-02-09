@@ -1,0 +1,200 @@
+:host {
+  display: block; /* Ensures the component behaves like a block element */
+  width: 100%;
+}
+
+nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0;
+  width: 90%;
+  max-width: 1800px;
+  margin: 0 auto;
+  border-radius: 16px;
+  margin: 4px auto;
+  .logo{
+      color: var(--dark);
+      font-size: 38px;
+      font-weight: 600;
+      max-height: 50px;
+      text-align: center;
+  }
+}
+.logo a span{
+  margin: 0;
+  font-weight: 600;
+  font-size: 36px;
+}
+.search{
+  display: flex;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.search-bar{
+  width: 500px;
+  height: 40px;
+  padding: 5px 10px;
+  font-size: medium;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  margin: 0;
+}
+.mic-button{
+width: 45px;
+border: none;
+color: #0F2167;
+font-size: x-large;
+font-weight: 600;
+border-right: 0.5px solid rgba(0, 0, 0, 0);
+}
+.search-button{
+  width: 45px;
+  border: none;
+  color: #0F2167;
+  font-size: x-large;
+  font-weight: 600;
+  border-radius: 0 8px 8px 0;
+}
+
+.search-button:hover{
+  background-color: #00275a;
+  color: #ffffff;
+}
+
+.search-bar:focus{
+  border: none;
+  outline: 1px #00275a;
+}
+
+.menu{
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  a{
+      list-style: none;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 500 !important;
+      color: var(--light);
+      margin: 0;
+  }
+  p{
+      margin: 0;
+  }
+}
+.active{
+  border-bottom: 2px solid #ffbf00;
+}
+.AuthButtons{
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--dark);
+  background-color: var(--shade-1);
+  padding: 6px 18px;
+  margin: 0 8px;
+  border-radius: 4px;
+  font-size: medium;
+  font-weight: 500;
+}
+.nav-mobile{
+display: none;
+}
+#b{
+  background-color: transparent;
+  border: 1px solid var(--shade-1);
+  color: var(--shade-1);
+}
+#b:hover{
+  background-color: var(--shade-1);
+  color: var(--dark);
+}
+@media (max-width: 767px) {
+  .logo{
+      left: 10px;
+  }
+  .navbar{
+      gap: 10px;
+  }
+}
+@media (max-width: 750px){
+  .navbar{
+      gap: 8px;
+  }
+  .buttonContainer button{
+      padding: 0;
+      margin: 0;
+  }
+  .buttonContainer button:first-child{
+      margin-right: 8px;
+  }
+}
+@media (max-width: 650px){
+  nav{
+      display: none;
+  }
+  .nav-mobile{
+    background-color: #0000003c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0px 10px;
+      width: 100%;
+  }
+  .nav-mobile .logo{
+    height: 60px;
+  }
+  #navMobile{
+      display: none;
+      flex-direction: column;
+      background-color: #000000e8;
+      height: 100vh;
+      z-index: 3;
+      font-size: large;
+      font-weight: 600;
+      padding: 10px;
+      position: fixed;
+      right: 0;
+      width: 200px;
+      text-decoration: none;
+      top: 0;
+      bottom: 0;
+      padding-left: 18px;
+  }
+  .logoMobile{
+      font-size: large;
+      font-weight: 600;
+      text-decoration: none;
+  }
+  .toggleNav{
+      border: none;
+      color: #ffffff;
+      background-color: transparent;
+      font-size: 30px;
+      position: absolute;
+      right: 10px;
+  }
+  .buttonContainer{
+      position: relative;
+  }
+  .userBtn{
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column !important;
+  }
+  .buttonContainer button{
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 6px;
+  }
+  #navMobile a{
+      color: #fff;
+      text-decoration: none;
+      margin: 6px 0;
+  }
+}

@@ -1,0 +1,212 @@
+<div class="main">
+  <div class="left-section">
+    <div class="logo">
+      <span style="color: #fff;"><span style="color: var(--shade-1);">FIT</span>GENIE</span>
+    </div>
+    <div class="menu">
+      <div class="welcome">
+        <span>Welcome,<br><span style="color: var(--shade-1);">{{ userName }}</span></span>
+      </div>
+      <li class="dashboard-active">
+        <img src="dashboard.png" alt="" width="20px" />&nbsp;&nbsp;
+        <p>Dashboard</p>
+      </li>
+      <a [routerLink]="['']"
+        ><li>
+          <i class="fa-solid fa-house"></i>&nbsp;&nbsp;
+          <p>Home</p>
+        </li></a
+      >
+      <li (click)="logout()">
+        <i class="fa-solid fa-power-off"></i>&nbsp;&nbsp;
+        <p>Log Out</p>
+      </li>
+    </div>
+    <hr />
+  </div>
+  <div class="right-section">
+    <div class="heading">
+      <span>Fitness Center Dashboard</span>
+    </div>
+    <div class="registrationForm" *ngIf="!isRegistered">
+      <span class="cr">Center Registration</span>
+      <div class="line"></div>
+      <form #centerForm="ngForm" (ngSubmit)="submitForm()">
+        <div class="g1">
+          <div class="form-group">
+            <label for="centerHeadEmail">Owner Email:</label>
+            <input type="email" class="form-control disabled" id="centerHeadEmail" [(ngModel)]="this.email" name="centerHeadEmail" readonly/>
+          </div>
+          <div class="form-group">
+            <label for="centerName">Center Name:</label>
+            <input type="text" class="form-control" id="centerName" [(ngModel)]="center.centerName" name="centerName" required />
+          </div>
+          <div class="form-group">
+            <label for="centerType">Center Type:</label>
+            <select class="form-control" id="centerType" [(ngModel)]="center.centerType" name="centerType" required>
+              <option value="">Select AC/Non-AC</option>
+              <option value="AC">AC</option>
+              <option value="Non-AC">Non-AC</option>
+            </select>
+          </div>
+        </div>
+        <div class="g1">
+          <div class="form-group">
+            <label for="registrationNumber">Registration Number:</label>
+            <input type="text" class="form-control" id="registrationNumber" [(ngModel)]="center.registrationNumber" name="registrationNumber" required />
+          </div>
+          <div class="form-group">
+            <label for="contactNumber">Contact Number:</label>
+            <input type="text" class="form-control" id="contactNumber" [(ngModel)]="center.contactNumber" name="contactNumber" required />
+          </div>
+          <div class="form-group">
+            <label for="trainerCount">Trainer Count:</label>
+            <input type="text" class="form-control" id="trainerCount" [(ngModel)]="center.trainerCount" name="trainerCount" required />
+          </div>
+        </div>
+        <div class="g1">
+          <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" class="form-control" id="address" [(ngModel)]="center.address" name="address" required />
+          </div>
+          <div class="form-group">
+            <label for="state">State:</label>
+            <input type="text" class="form-control" id="state" [(ngModel)]="center.state" name="state" required />
+          </div>
+          <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" class="form-control" id="city" [(ngModel)]="center.city" name="city" required />
+          </div>
+          <div class="form-group">
+            <label for="pincode">Pincode:</label>
+            <input type="text" class="form-control" id="pincode" [(ngModel)]="center.pincode" name="pincode" required />
+          </div>
+        </div>
+        <div class="g1">
+          <div class="form-group">
+            <label for="openingTime">Opening Time:</label>
+            <input type="time" class="form-control" id="openingTime" [(ngModel)]="center.openingTime" name="openingTime" [placeholder]="center.openingTime" required />
+          </div>
+          <div class="form-group">
+            <label for="closingTime">Closing Time:</label>
+            <input type="time" class="form-control" id="closingTime" [(ngModel)]="center.closingTime" name="closingTime" placeholder="HH / MM" required />
+          </div>
+          <div class="form-group" *ngFor="let day of center.daysAvailable; let i = index; trackBy: trackByIndex">
+            <label>Day {{ i + 1 }}:</label>
+            <input type="text" class="form-control" [(ngModel)]="center.daysAvailable[i]" name="daysAvailable{{ i }}" placeholder="Available Day in week" required />
+            <button type="button" (click)="removeField('daysAvailable',i)" *ngIf="center.daysAvailable.length > 1">Remove</button>
+          </div>
+          <button type="button" (click)="addField('daysAvailable')" *ngIf="center.daysAvailable[center.daysAvailable.length - 1]">Add Day</button>
+        </div>
+        <div class="form-group">
+          <label for="details">Details:</label>
+          <textarea placeholder="Basic Info About Gym" class="form-control" id="details" [(ngModel)]="center.details" name="details"></textarea>
+        </div>
+        <div class="g1">
+          <div class="form-group">
+            <label for="latitude">Latitude:</label>
+            <input class="form-control" id="latitude" [(ngModel)]="center.latitude" name="latitude" required />
+          </div>
+          <div class="form-group">
+            <label for="longitude">Longitude:</label>
+            <input class="form-control" id="longitude" [(ngModel)]="center.longitude" name="longitude" required />
+          </div>
+        </div>
+        <div class="">
+          <div class="form-group-array">
+            <label>Images(URL):</label>
+            <button type="button" (click)="addField('images')" *ngIf="center.images[center.images.length - 1]">Add Image</button>
+          </div>
+          <div class="form-group fg1" *ngFor="let image of center.images; let i = index; trackBy: trackByIndex">
+            <input [placeholder]="'Sample Image '+ (i+1)" type="text" class="form-control" [(ngModel)]="center.images[i]" name="images{{ i }}" required />
+            <button type="button" (click)="removeField('images',i)" *ngIf="center.images.length > 1">Remove</button>
+          </div>
+        </div>
+
+        <div class="form-group-array">
+          <label>Videos(URL):</label>
+          <button type="button" (click)="addField('videos')" *ngIf="center.videos[center.videos.length - 1]">Add Video</button>
+        </div>
+        <div class="form-group fg1" *ngFor="let video of center.videos; let i = index; trackBy: trackByIndex">
+          <input [placeholder]="'Sample Video '+(i+1)" type="text" class="form-control" [(ngModel)]="center.videos[i]" name="videos{{ i }}" required />
+          <button type="button" (click)="removeField('videos',i)" *ngIf="center.videos.length > 1">Remove</button>
+        </div>
+
+        <div class="form-group-array">
+          <label>Instruments:</label>
+          <button type="button" (click)="addField('availableInstruments')" *ngIf="center.availableInstruments[center.availableInstruments.length - 1]">Add Instrument</button>
+        </div>
+        <div class="fg1 form-group" *ngFor="let instrument of center.availableInstruments; let i = index; trackBy: trackByIndex">
+          <input [placeholder]="'Instrument ' + (i+1)" type="text" class="form-control" [(ngModel)]="center.availableInstruments[i]" name="availableInstruments{{ i }}" required placeholder="Instruments Used"/>
+          <button type="button" (click)="removeField('availableInstruments',i)" *ngIf="center.availableInstruments.length > 1">Remove</button>
+        </div>
+
+        <button type="submit" class="btnSubmit" [disabled]="!centerForm.form.valid">Submit</button>
+      </form>
+    </div>
+    <div class="displayDetails" *ngIf="isRegistered">
+      <div class="title">
+        <h5 style="margin: 0;">Center Details</h5>
+        <span id="v1" *ngIf="!center.isVerified"><i class="fa-solid fa-info"></i>&nbsp;Verification Pending</span>
+        <span id="v2" *ngIf="center.isVerified"><i class="fa-solid fa-check"></i>&nbsp;Verified</span>
+      </div>
+      <div class="line"></div>
+      <div class="centerDetails">
+        <div class="centerDetailsLeft">
+          <div class="form-group">
+            <label>Center Name:</label>
+            <p>{{ center.centerName }}</p>
+          </div>
+          <div class="form-group">
+            <label>Center Type:</label>
+            <p>{{ center.centerType }}</p>
+          </div>
+          <div class="form-group">
+            <label>Registration Number:</label>
+            <p>{{ center.registrationNumber }}</p>
+          </div>
+          <div class="form-group">
+            <label>Contact Number:</label>
+            <p>{{ center.contactNumber }}</p>
+          </div>
+          <div class="form-group">
+            <label>Trainer Count:</label>
+            <p>{{ center.trainerCount }}</p>
+          </div>
+          <div class="form-group">
+            <label>State:</label>
+            <p>{{ center.state }}</p>
+          </div>
+          <div class="form-group">
+            <label>City:</label>
+            <p>{{ center.city }}</p>
+          </div>
+          <div class="form-group">
+            <label>Pincode:</label>
+            <p>{{ center.pincode }}</p>
+          </div>
+          <div class="form-group">
+            <label>Opening Time:</label>
+            <p>{{ center.openingTime }}</p>
+          </div>
+          <div class="form-group">
+            <label>Closing Time:</label>
+            <p>{{ center.closingTime }}</p>
+          </div>
+          <div class="form-group">
+            <label>Days Available:</label>
+            <p>{{ center.daysAvailable.join(', ') }}</p>
+          </div>
+          <div class="form-group">
+            <label>Address:</label>
+            <p>{{ center.address }}</p>
+          </div>
+        </div>
+        <div class="centerDetailsRight">
+          <img [src]="center.images[0]" alt="Gym Image">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

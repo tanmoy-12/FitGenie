@@ -1,0 +1,133 @@
+.main{
+  min-height: 100vh;
+  background-color: var(--shade-2);
+  padding: 16px;
+  color: var(--light);
+}
+.exercise-container{
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.form-filter{
+  width: 280px;
+}
+.filter{
+  margin-bottom: 12px;
+}
+.form-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: large;
+  width: 280px;
+  font-weight: 500;
+  padding: 8px 18px;
+  background-color: var(--shade-2);
+  border: 1px solid var(--shade-1);
+  color: var(--shade-1);
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+}
+.form-title:hover{
+  background-color: var(--shade-1);
+  color: var(--dark);
+}
+.form-content{
+  display: flex;
+  flex-direction: column;
+  padding: 8px 18px;
+  border: 1px solid var(--shade-1);
+  border-radius: 0 0 4px 4px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+.form-item{
+  display: inline-flex;
+  gap: 8px;
+}
+.clear{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--light);
+  padding: 8px 18px;
+  font-size: larger;
+}
+.right-section{
+  width: 100%;
+}
+.exercise-card{
+  padding: 12px;
+  border: 1px solid var(--shade-1);
+  border-radius: 4px;
+  margin: 12px 0;
+  width: 100%;
+  display: flex;
+}
+.exercise-image{
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  background-color: var(--light);
+  margin-right: 18px;
+}
+.exercise-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.exercise-details{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;letter-spacing: 0.06rem;
+  gap: 4px;
+  width: 450px;
+  font-size: small;
+  border-right: 1.5px solid var(--shade-2);
+  padding: 0 12px;
+  p{
+    margin: 0px;
+  }
+}
+.experience{
+  padding: 4px 8px;
+  background-color: var(--shade-4);
+  border-radius: 4px;
+  color: var(--shade-2);
+  font-weight: 600;
+  width: max-content;
+}
+.location i{
+  color: var(--shade-1);
+}
+.qualification{
+  font-weight: 600;
+}
+.exercise-appointment{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+.availableDays{
+  color: var(--shade-1);
+  font-size: larger;
+  font-weight: 600;
+}
+.bookAppointment{
+  background-color: var(--shade-1);
+  color: var(--dark);
+  border: none;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+.bookAppointment:hover{
+  background-color: #afce00;
+}
+.center{
+  text-align: center;
+}

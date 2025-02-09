@@ -1,0 +1,130 @@
+<div class="authMain">
+  <div class="navbar">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="container1">
+    <div class="formContainer" id="form1">
+      <div class="fcLeft">
+        <img src="https://www.shutterstock.com/shutterstock/photos/2462169757/display_1500/stock-photo-sport-collage-energetic-athletes-from-diverse-sports-leap-and-compete-shows-spectrum-of-2462169757.jpg" alt="">
+      </div>
+      <div class="fcRight">
+        <p style="margin-bottom: 18px; font-weight: 600">Signup Form</p>
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="f1">
+          <input formControlName="userName" placeholder="Name" required />
+
+          <!-- Email Input -->
+          <input formControlName="email" placeholder="Email" required />
+          <div
+            *ngIf="
+              signupForm.get('email')?.invalid &&
+              signupForm.get('email')?.touched
+            "
+            style="color: red; margin: 0"
+          >
+            Email ID is invalid
+          </div>
+
+          <!-- Password Input -->
+          <input
+            formControlName="password"
+            placeholder="Password"
+            type="password"
+            required
+            (focus)="showPasswordRules = true"
+          />
+          <div *ngIf="showPasswordRules" class="checks">
+            <ul [ngClass]="{ notdisplay: togglePasswordRules() }">
+              <li
+                [ngClass]="{
+                  valid: isValidPasswordLength(),
+                  invalid: !isValidPasswordLength()
+                }"
+              >
+                Password must be 8-16 characters long
+              </li>
+              <li
+                [ngClass]="{
+                  valid: containsNumber(),
+                  invalid: !containsNumber()
+                }"
+              >
+                At least one number must be present
+              </li>
+              <li
+                [ngClass]="{
+                  valid: containsUpperCase(),
+                  invalid: !containsUpperCase()
+                }"
+              >
+                At least one capital letter must be present
+              </li>
+              <li
+                [ngClass]="{
+                  valid: containsLowerCase(),
+                  invalid: !containsLowerCase()
+                }"
+              >
+                At least one small letter must be present
+              </li>
+              <li
+                [ngClass]="{
+                  valid: containsSpecialCharacter(),
+                  invalid: !containsSpecialCharacter()
+                }"
+              >
+                At least one special symbol must be present
+              </li>
+            </ul>
+          </div>
+
+          <!-- Confirm Password Input -->
+          <input
+            formControlName="confirmPassword"
+            placeholder="Confirm Password"
+            type="password"
+            required
+          />
+          <div
+            *ngIf="signupForm.errors?.['mismatch'] && signupForm.get('confirmPassword')?.touched"
+            style="color: red"
+          >
+            Password mismatch
+          </div>
+
+          <!--- Select User Type --->
+          <select formControlName="userType" required>
+            <option value="">Select User Type</option>
+            <option value="fitness_center">Fitness Center</option>
+            <option value="user">User</option>
+          </select>
+
+          <!-- OTP Input -->
+          <input
+            *ngIf="otpSent"
+            formControlName="otp"
+            placeholder="Enter OTP"
+            required
+          />
+
+          <button
+            type="submit"
+            [disabled]="loading || signupForm.invalid"
+            [ngClass]="{ 'disabled-btn': loading || signupForm.invalid }"
+            class="fb1"
+          >
+            <span *ngIf="!loading">{{
+              otpSent ? "Verify OTP" : "Signup"
+            }}</span>
+            <span *ngIf="loading" class="spinner"></span>
+          </button>
+        </form>
+        <button (click)="signUpWithGoogle()" class="google-signup">
+          <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" />
+          Signup with Google
+        </button><br>
+        <a href="/login">Already Have An Account? Login</a>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

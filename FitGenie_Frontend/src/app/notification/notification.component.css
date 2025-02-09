@@ -1,0 +1,50 @@
+.notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+    font-family: 'Roboto';
+    background-color: #000000;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+    .notification i{
+      font-weight:bolder;
+      font-size: medium;
+      color: #fff;
+    }
+    .icon{
+      width: 25px;
+      height: 25px;
+      background-color: #c7c7c7cf;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      margin-right: 10px;
+      font-size: 18px;
+    }
+    .notification.success .icon{
+      background-color: #2d8800;
+    }
+    .notification.error .icon{
+      background-color: #d91102;
+    }
+    .notification.info .icon{
+      background-color: #ffc823;
+    }
+    .notification button {
+      background: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    

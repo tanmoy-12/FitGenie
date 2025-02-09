@@ -1,0 +1,284 @@
+<div class="navbar">
+  <app-navbar></app-navbar>
+</div>
+<div class="main">
+  <div class="hero-outer">
+    <div class="hero">
+      <div class="hero-left">
+        <h1>
+          SHAPE YOUR <span class="s">IDEAL BODY</span> <br />
+          WITH OUR <span>PERSONALIZED</span><br />
+          <span class="s"> FITNESS COMPANION</span>
+        </h1>
+        <p>
+          Explore a holistic approach to fitness and wellness with FitGenie.
+          Dive into a personalized journey combining AI-driven workout plans,
+          immersive VR sessions, and AR-based challenges. Engage with
+          interactive diet plans, mental wellness tools, and community-driven
+          fitness goals—all on a single platform.
+        </p>
+        <button class="hero-button" (click)="getStarted()">Get Started&nbsp;<i class="fas fa-angle-right"></i></button>
+      </div>
+      <div class="hero-right">
+        <img src="https://pngimg.com/d/bodybuilding_PNG83.png" alt="" />
+      </div>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span>NO PAIN NO GAIN</span>
+      </div>
+      <div class="content">
+        <ul>
+          <li>
+            <i class="fa-brands fa-slack"></i>&nbsp;BEGINNER FRIENDLY&nbsp;
+          </li>
+          <li>
+            <i class="fa-brands fa-slack"></i>&nbsp;PERSONALIZED WORKOUT
+            PLANS&nbsp;
+          </li>
+          <li>
+            <i class="fa-brands fa-slack"></i>&nbsp;NUTRITION GUIDANCE&nbsp;
+          </li>
+          <li>
+            <i class="fa-brands fa-slack"></i>&nbsp;PROGRESS TRACKING&nbsp;
+          </li>
+          <li>
+            <i class="fa-brands fa-slack"></i>&nbsp;COMMUNITY SUPPORT&nbsp;
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="about-us">
+    <div class="about-us-left">
+      <section>ABOUT US</section>
+      <p>
+        Welcome to
+        <span style="color: #fff"
+          ><span style="color: var(--shade-1)">FIT</span>GENIE</span
+        >, where your fitness journey is our top priority. Our mission is to
+        empower individuals to achieve their health and wellness goals through
+        personalized workout plans, expert nutrition guidance, and progress
+        tracking tools. With access to virtual classes led by professional
+        trainers and a supportive community of fitness enthusiasts, you'll find
+        the motivation and resources you need to succeed. Our state-of-the-art
+        facilities and innovative approach to fitness ensure that everyone,
+        regardless of experience level, can enjoy a fulfilling and effective
+        fitness journey. Join us today and take the first step towards a
+        healthier, happier you!
+      </p>
+    </div>
+    <div class="about-us-right">
+      <img src="i1.png" alt="" />
+    </div>
+  </div>
+  <!-------Community------->
+  <div class="community-container">
+    <div class="community-upper">
+      <div class="cu1-content">
+        <h1>Connect, <span style="color: var(--shade-1);">Collaborate</span>, Grow – The Power of Community!</h1>
+        <p>
+          Connect with like-minded individuals, share your fitness journey, and
+          discover new opportunities. Join our growing community of fitness
+          enthusiasts, and discover how FitGenie can help you stay motivated,
+          focused, and healthy.
+        </p>
+        <a [routerLink]="['/community']"><button>JOIN NOW</button></a>
+      </div>
+    </div>
+    <div class="community-lower">
+      <section class="cl1"><div class="cl1-inner"></div></section>
+      <section class="cl2">
+      <div class="cl2-content">
+        <img src="https://formagym.com/wp-content/uploads/2019/03/shutterstock_1065905168-1.jpg" alt="">
+      </div>
+      </section>
+    </div>
+  </div>
+  <!---Our Services-->
+  <div class="service-content">
+    <p style="color: var(--shade-1); margin: 0">── Our Services</p>
+    <h2 style="color: var(--light)">Our Services For You</h2>
+    <div class="services">
+      <div class="service" *ngFor="let service of services">
+        <div class="service-logo">
+          <i class="{{ service.icon }}" style="color: var(--shade-1);"></i>
+        </div>
+        <h5>{{ service.title }}</h5>
+        <p>
+          {{ service.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- subscription-plans  -->
+  <div class="container_sub" id="plans">
+    <div class="sub-top">
+      <h1>
+        Subscription<br />
+        Plans
+      </h1>
+      <p>
+        Choose the subscription plan that fits you the best, offering the
+        perfect balance of features, affordability, and flexibility to meet your
+        needs.
+      </p>
+    </div>
+    <div class="subscription-plans">
+      <div class="plan basic">
+        <h3>Basic Plan</h3>
+        <p
+          class="price"
+          style="font-weight: normal; margin: 0px; font-size: 19px"
+        >
+          <span style="font-family: 'Times New Roman', Times, serif">₹</span>
+          <s>399</s>/month
+        </p>
+        <p class="price" style="margin: 0px">
+          <span style="font-family: 'Times New Roman', Times, serif">₹</span>
+          249/month
+        </p>
+        <ul>
+          <li>Access to Home Workouts</li>
+          <li>AI-Powered Diet Plans</li>
+          <li>Progress Tracking</li>
+          <li>Basic support</li>
+          <li>Community access</li>
+        </ul>
+        <button class="subscribe-btn">Choose Plan</button>
+      </div>
+      <div class="plan standard">
+        <h3>Standard Plan</h3>
+        <p
+          class="price"
+          style="font-weight: normal; margin: 0px; font-size: 19px"
+        >
+          <span style="font-family: 'Times New Roman', Times, serif">₹</span>
+          <s>699</s>/month
+        </p>
+        <p class="price" style="margin: 0px">
+          <span style="font-family: 'Times New Roman', Times, serif">₹</span>
+          499/month
+        </p>
+        <ul>
+          <li>All Basic Plan Features</li>
+          <li>Access to Partner Gyms</li>
+          <li>Live Virtual Classes</li>
+          <li>Priority support</li>
+          <li>Exclusive community events</li>
+        </ul>
+        <button class="subscribe-btn">Choose Plan</button>
+      </div>
+      <div class="plan premium">
+        <h3>Premium Plan</h3>
+        <p
+          class="price"
+          style="font-weight: normal; margin: 0px; font-size: 19px"
+        >
+          <span style="font-family: 'Times New Roman', Times, serif">₹</span>
+          <s>1499</s>/month
+        </p>
+        <p class="price" style="margin: 0px">
+          <span style="font-family: 'Times New Roman', Times, serif">₹</span>
+          999/month
+        </p>
+        <ul>
+          <li>All Standard Plan Features</li>
+          <li>Personalized Coaching</li>
+          <li>Advanced Health Analytics</li>
+          <li>24/7 dedicated support</li>
+          <li>Exclusive Discounts</li>
+        </ul>
+        <button class="subscribe-btn">Choose Plan</button>
+      </div>
+    </div>
+  </div>
+  <!--============================================== FAQS SECTION ============================================-->
+  <div class="faq-container">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>How can I pay for my subscription?</summary>
+      <p>
+        We accept various payment methods including credit/debit cards and
+        online payment gateways. You can choose the payment method that is most
+        convenient for you during the checkout process.
+      </p>
+    </details>
+
+    <details>
+      <summary>Can I cancel or reschedule my training session?</summary>
+      <p>
+        Yes, you can cancel or reschedule your training session by contacting
+        our customer support team or using our online session management system.
+        Please make sure to notify us at least 24 hours in advance to avoid any
+        cancellation fees.
+      </p>
+    </details>
+
+    <details>
+      <summary>Do you have subscription plans?</summary>
+      <p>
+        Yes, we offer a variety of subscription plans to suit your needs. Please
+        refer to our subscription plans section for detailed information or
+        contact our support team for assistance.
+      </p>
+    </details>
+
+    <details>
+      <summary>What fitness services do you offer?</summary>
+      <p>
+        We offer a wide range of fitness services including personalized
+        training programs, nutrition guidance, virtual classes, and progress
+        tracking. Please refer to our Services section for more details.
+      </p>
+    </details>
+
+    <details>
+      <summary>How do I book a training session?</summary>
+      <p>
+        To book a training session, simply click on the "Book Session" button on
+        our homepage. You will be directed to our booking system where you can
+        choose your preferred date and time.
+      </p>
+    </details>
+
+    <details>
+      <summary>Is my personal information secure?</summary>
+      <p>
+        Yes, we take the security of your personal information very seriously.
+        Our platform uses the latest encryption technology to ensure that your
+        data is protected at all times.
+      </p>
+    </details>
+  </div>
+
+  <div class="contacts" id="contact">
+    <div class="contact-outer">
+      <div class="feature" *ngFor="let feature of features">
+        <h1>{{ feature.text1 }}</h1>
+        <p>{{ feature.text2 }}</p>
+      </div>
+    </div>
+    <div class="contact-inner">
+      <div class="contact-left">
+        <h1>CONTACT US</h1>
+        <p>
+          Feel free to reach out to us at our contact form or email address.
+        </p>
+        <form>
+          <input type="text" placeholder="Name" />
+          <input type="text" placeholder="Email" />
+          <textarea placeholder="Message"></textarea>
+          <button class="submit-btn">Submit</button>
+        </form>
+      </div>
+      <div class="contact-right">
+        <img
+          src="https://th.bing.com/th/id/OIP.Q5-7VFX0tplomNxMpkZq2wEgDY?rs=1&pid=ImgDetMain"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

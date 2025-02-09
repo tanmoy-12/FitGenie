@@ -1,0 +1,16 @@
+<div class="main">
+  <div class="record-video-btn">
+    <button type="button" (click)="startWebcam()">{{ videoButtonTitle }}</button>
+    <button type="button" (click)="stopRecording()" [disabled]="!isRecording">Stop Recording</button>
+  </div>
+
+  <div class="record-video-container">
+    <video #videoElement id="preview" autoplay muted class="video"></video>
+  </div>
+
+  <canvas #canvasElement class="video-canvas"></canvas>
+  <div class="results">
+    <span>Detected Exercise : {{ detectedExercise }}&nbsp;&nbsp;</span>
+    <span>Duration : {{ duration }} seconds</span>
+  </div>
+</div>

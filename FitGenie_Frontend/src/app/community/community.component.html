@@ -1,0 +1,113 @@
+
+<div class="main">
+  <div class="outer-glass">
+    <div class="left">
+      <div class="logo">
+        <a [routerLink]="['']"><span style="color: #fff"><span style="color: var(--shade-1)">FIT</span>GENIE</span></a>
+      </div>
+      <div class="menu">
+        <div class="welcome">
+          <span
+            >Welcome,<br /><span style="color: var(--shade-1)">{{
+              userName
+            }}</span></span
+          >
+        </div>
+        <div class="calendar">
+          <div class="month-header">{{ month }} {{ year }}</div>
+          <div class="days-container">
+            <div *ngFor="let day of days; let i = index"
+                 [class.today]="day === today"
+                 class="day">
+              {{ day }}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="middle">
+      <h1 class="heading">Community</h1>
+      <div class="posts">
+        <div *ngIf="!userId" class="alert alert-warning">
+          You must be logged in to access the community.
+        </div>
+        <div *ngIf="userId">
+          <div class="create-post">
+            <textarea [(ngModel)]="newPostContent" placeholder="Write your post here..."></textarea>
+            <button (click)="addPost()"><i class="fa-solid fa-plus"></i></button>
+          </div>
+
+          <div *ngFor="let post of posts" class="post">
+            <p><strong>{{ post.author.userName }}</strong> &nbsp;<span>{{ timeAgo(post.createdAt) }}</span></p>
+            <p class="highlighted">{{ post.userType }}</p>
+            <p class="content">{{ post.content }}</p>
+            <div class="post-info">
+              <span *ngIf="post.likes.length > 0">{{ post.likes.length }} Likes</span>
+              <span *ngIf="post.comments.length > 0" (click)="toggleComments(post._id)" class="clickable">{{ post.comments.length + post.comments.length }} Comments</span>
+            </div>
+
+            <div class="post-buttons">
+              <button (click)="likePost(post._id)" class="post-button">
+                <span *ngIf="!post.likes.includes(userId)"><i class="fa-regular fa-heart"></i>&nbsp;&nbsp;Like</span>
+                <span *ngIf="post.likes.includes(userId)" style="color: #ff0000;"><i class="fa-solid fa-heart"></i>&nbsp;&nbsp;Like</span>
+              </button>
+              <button class="post-button"><i class="fa-solid fa-repeat"></i>&nbsp;&nbsp;Repost</button>
+              <button class="post-button" (click)="toggleCommentInput(post._id)">
+                <i class="fa-regular fa-comment-dots"></i>&nbsp;&nbsp;Comment
+              </button>
+              <button class="post-button"><i class="fa-solid fa-paper-plane"></i>&nbsp;&nbsp;Share</button>
+              <!-- Add delete button for posts -->
+              <button class="post-button" (click)="deletePost(post._id)"><i class="fa-solid fa-trash"></i>&nbsp;&nbsp;Delete Post</button>
+
+            </div>
+
+            <!-- Show comment input when commentInputVisible is true for this post -->
+            <div *ngIf="commentInputVisible[post._id]" class="comment">
+              <input type="text" [(ngModel)]="commentText" placeholder="Write a comment..." />
+              <button (click)="postComment(post._id, null)">Comment</button>
+            </div>
+
+            <!-- Comments Section -->
+            <div *ngFor="let comment of post.comments" class="comment-container">
+              <p>
+                <strong>{{ comment.userName }}</strong>: {{ comment.content }}
+              </p>
+              <div class="comment-actions">
+                <button (click)="likeComment(comment._id)">Like ({{ comment.likes.length }})</button>
+                <button (click)="startReplying(comment._id)">Reply</button>
+                <button (click)="deleteComment(comment._id)">Delete</button> <!-- Delete Comment Button -->
+              </div>
+
+              <!-- Nested Replies -->
+              <div class="replies" *ngIf="comment.replies && comment.replies.length > 0">
+                <div *ngFor="let reply of comment.replies" class="reply">
+                  <div class="reply-line"></div> <!-- Vertical line for hierarchy -->
+                  <div class="reply-content">
+                    <p><strong>{{ reply.author.userName }}</strong>: {{ reply.content }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Reply Input -->
+              <div *ngIf="replyingTo === comment._id" class="reply-input">
+                <input type="text" [(ngModel)]="commentText" placeholder="Write a reply..." />
+                <button (click)="postComment(post._id, comment._id)">Reply</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="right"></div>
+  </div>
+  <div class="inner-glass">
+    <div class="shape1" id="sh1"></div>
+    <div class="shape1" id="sh2"></div>
+    <div class="shape1" id="sh3"></div>
+    <div class="shape1" id="sh4"></div>
+  </div>
+</div>
+<app-footer></app-footer>

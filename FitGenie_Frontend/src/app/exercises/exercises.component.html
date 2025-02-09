@@ -1,0 +1,36 @@
+<div class="navbar">
+  <app-navbar></app-navbar>
+</div>
+<div class="main">
+  <h3 style="text-align: center;">Exercises</h3>
+  <div class="exercise-container">
+    <div *ngIf="exercises.length === 0" class="no-exercises">
+      No exercises available.
+    </div>
+    <div *ngFor="let exercise of exercises" class="exercise-card">
+      <div class="exercise-image">
+        <img
+          [src]="exercise.images[0]"
+          alt="exercise's Image"
+        />
+      </div>
+      <div class="exercise-details">
+        <h5>{{ exercise.exerciseName }}</h5>
+        <p class="experience">
+          {{ exercise.exerciseType }}
+        </p>
+        <p class="qualification">{{ exercise.equipments.slice(0, 2).join(", ") }}...</p>
+        <span>{{ exercise.exerciseCategory }}</span>
+      </div>
+      <div class="exercise-appointment">
+        <button
+          class="bookAppointment"
+          (click)="viewDetails(exercise._id)"
+        >
+          View Details
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

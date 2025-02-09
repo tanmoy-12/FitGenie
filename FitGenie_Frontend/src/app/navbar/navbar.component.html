@@ -1,0 +1,48 @@
+<nav>
+  <div class="logo">
+    <a href="">
+      <!-- <img src="logo.png" alt="" class="logo"> -->
+       <span style="color: #fff;"><span style="color: var(--shade-1);">FIT</span>GENIE</span>
+    </a>
+  </div>
+  <div class="menu">
+    <a (click)="goToSection('plans')"><p>Plans</p></a>
+    <a [routerLink]="['/centers']" routerLinkActive="router-link-active"><p>Centers</p></a>
+    <a [routerLink]="['/exercises']" routerLinkActive="router-link-active"><p>Exercises</p></a>
+    <a (click)="goToSection('contact')"><p>Contact Us</p></a>
+    <a [routerLink]="['/wishList']" routerLinkActive="router-link-active"><p style="color: #ff0000;"><i class="fa-solid fa-heart"></i></p></a>
+    <div class="buttonContainer">
+      <div *ngIf="!loggedIn">
+        <button (click)="router.navigate(['/login'])" id="a" class="AuthButtons">Login</button>
+        <button (click)="router.navigate(['/signup'])" id="b" class="AuthButtons">Register</button>
+      </div>
+      <div *ngIf="loggedIn">
+        <button (click)="navigate()" class="AuthButtons" id="a"><i class="fa-solid fa-user"></i>&nbsp;Dashboard</button>
+        <button (click)="logout()" class="AuthButtons" id="b">Logout&nbsp;<i class="fa-solid fa-right-from-bracket"></i></button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="nav-mobile">
+<a href="">
+  <!-- <img src="logo.png" alt="" class="logo"> -->
+</a>
+<button class="toggleNav" (click)="displayNavMobile()"><i class="fa-solid fa-bars-staggered"></i></button>
+<div class="nav-elements" id="navMobile">
+  <span class="closeNav" (click)="closeNav()" style="text-align: right; color: #ffacac;"><i class="fa-solid fa-xmark"></i></span>
+  <a (click)="goToSection('')">Home</a>
+  <a (click)="goToSection('about')">About</a>
+  <a (click)="goToSection('contact')">Contact</a>
+  <div class="buttonContainer">
+    <div *ngIf="!loggedIn">
+      <button (click)="router.navigate(['/login'])">Login&nbsp;<i class="fa-solid fa-right-to-bracket"></i></button>
+    </div>
+    <div *ngIf="loggedIn" class="userBtn">
+      <!-- <button (click)="navigate()">
+        Dashboard
+      </button> -->
+      <button (click)="logout()">Logout</button>
+    </div>
+  </div>
+</div>
+</div>

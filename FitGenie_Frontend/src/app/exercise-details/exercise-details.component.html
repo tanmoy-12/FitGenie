@@ -1,0 +1,106 @@
+<div class="navbar">
+  <app-navbar></app-navbar>
+</div>
+<div class="main">
+  <div *ngIf="exerciseDetails" >
+    <div class="item" id="pc">
+      <div class="item-graphics">
+        <div class="item-media">
+          <div class="media-preview-column">
+            <div class="preview-item" *ngFor="let image of exerciseDetails.images">
+              <img
+                [src]="image"
+                alt="Modal Image"
+                class="preview-image"
+                (click)="showInLargeView(image, 'image')"
+              />
+            </div>
+            <div class="preview-item" *ngFor="let video of exerciseDetails.videos">
+              <img
+                src="https://th.bing.com/th/id/OIP.8_bri3mAg46YzGyic7aGuwHaHa?w=512&h=512&rs=1&pid=ImgDetMain"
+                alt="image"
+                class="preview-image"
+                (click)="showInLargeView(video, 'video')"
+              />
+            </div>
+          </div>
+
+          <div class="media-large-view-column">
+            <button (click)="sharePage()" class="sharePage">
+              <i class="fa-solid fa-share-from-square"></i>
+            </button>
+
+            <div class="large-view-item">
+              <img
+                *ngIf="largeViewType === 'image'"
+                [src]="largeViewSrc"
+                alt="Large View"
+                class="large-view-image"
+              />
+              <iframe
+                *ngIf="largeViewType === 'video'"
+                [src]="largeViewSrc"
+                controls
+                autoplay
+                class="large-view-video"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+        <div class="item-button">
+          <a ><button id="wishlist" class="bookmarkbtn" (click)="openExerciseModal()">Exercise Detection</button></a>
+        </div>
+      </div>
+      <div class="item-details">
+
+        <div class="item-common-names">
+          <h3>{{ exerciseDetails.exerciseName }}</h3>
+        </div>
+        <div class="center-type">
+          <p><strong>Type:</strong> {{ exerciseDetails.exerciseType }}</p>
+        </div>
+        <div class="center-type">
+          <p><strong>Duration:</strong> {{ exerciseDetails.exerciseDuration }} mins</p>
+        </div>
+        <div class="center-type">
+          <p><strong>Category:</strong> {{ exerciseDetails.exerciseCategory }}</p>
+        </div>
+        <div class="item-description">
+          <div class="item-header">
+            <strong>Description</strong>
+          </div>
+          <p>{{ exerciseDetails.details }}</p>
+        </div>
+        <div class="item-procedures">
+          <div class="item-header">
+            <strong>How to Perform</strong>
+          </div>
+          <ul class="instruments-uses">
+            <li *ngFor="let procedure of exerciseDetails.procedures">{{ procedure }}</li>
+          </ul>
+        </div>
+        <div class="item-description">
+          <div class="item-header">
+            <strong>Benefits</strong>
+          </div>
+          <p>{{ exerciseDetails.benefits }}</p>
+        </div>
+        <div class="item-description">
+          <div class="item-header">
+            <strong>Limitations</strong>
+          </div>
+          <p>{{ exerciseDetails.limitations }}</p>
+        </div>
+        <div class="item-instruments">
+          <div class="item-header">
+            <strong>Equipments Needed</strong>
+          </div>
+          <ul class="instruments-uses">
+            <li *ngFor="let instrument of exerciseDetails.equipments">{{ instrument }}</li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="!exerciseDetails">Loading plant details...</div>
+    </div>
+  </div>
+<app-footer></app-footer>

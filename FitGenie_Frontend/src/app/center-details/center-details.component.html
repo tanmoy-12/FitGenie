@@ -1,0 +1,108 @@
+<div class="navbar">
+  <app-navbar></app-navbar>
+</div>
+<div class="main">
+  <div *ngIf="gymDetails" >
+    <div class="item" id="pc">
+      <div class="item-graphics">
+        <div class="item-media">
+          <div class="media-preview-column">
+            <div class="preview-item" *ngFor="let image of gymDetails.images">
+              <img
+                [src]="image"
+                alt="Modal Image"
+                class="preview-image"
+                (click)="showInLargeView(image, 'image')"
+              />
+            </div>
+            <div class="preview-item" *ngFor="let video of gymDetails.videos">
+              <img
+                src="https://th.bing.com/th/id/OIP.8_bri3mAg46YzGyic7aGuwHaHa?w=512&h=512&rs=1&pid=ImgDetMain"
+                alt="image"
+                class="preview-image"
+                (click)="showInLargeView(video, 'video')"
+              />
+            </div>
+          </div>
+
+          <div class="media-large-view-column">
+            <button (click)="sharePage()" class="sharePage">
+              <i class="fa-solid fa-share-from-square"></i>
+            </button>
+
+            <div class="large-view-item">
+              <img
+                *ngIf="largeViewType === 'image'"
+                [src]="largeViewSrc"
+                alt="Large View"
+                class="large-view-image"
+              />
+              <iframe
+                *ngIf="largeViewType === 'video'"
+                [src]="largeViewSrc"
+                controls
+                autoplay
+                class="large-view-video"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+        <div class="item-button">
+          <button id="wishlist" class="bookmarkbtn" *ngIf="!loading" (click)="isWishlisted ? goToWishlist(): wishlist(gymDetails._id)">
+            <i class="fa-solid fa-heart" style="color: #ff0000;"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{ isWishlisted ? "Go to Wishlist" : "Add to Wishlist" }}
+            <div *ngIf="loading" class="spinner"></div>
+            <i class="fa-solid fa-lock" *ngIf="!this.email" id="lock"></i>
+          </button>
+        </div>
+      </div>
+      <div class="item-details">
+        <button id="edit" (click)="openEditForm()" *ngIf="this.email===gymDetails.centerHeadEmail">
+          <i class="fa-regular fa-pen-to-square"></i>&nbsp;&nbsp;Edit Gym Details
+        </button>
+
+        <div class="item-common-names">
+          <h3>{{ gymDetails.centerName }}</h3>
+        </div>
+        <div class="center-type">
+          <p><strong>Type:</strong> {{ gymDetails.centerType }}</p>
+        </div>
+        <div class="center-type">
+          <p><strong>No of trainers:</strong> {{ gymDetails.trainerCount }}</p>
+        </div>
+        <div class="item-description">
+          <div class="item-header">
+            <strong>Description</strong>
+          </div>
+          <p>{{ gymDetails.details }}</p>
+        </div>
+        <div class="item-availability">
+          <p><strong>Availability</strong>: {{ gymDetails.openingTime }} - {{ gymDetails.closingTime }}</p>
+        </div>
+        <div class="days-available">
+          <p><strong>Days Available:</strong> {{ gymDetails.daysAvailable.join(', ') }}</p>
+        </div>
+        <div class="item-instruments">
+          <div class="item-header">
+            <strong>Instruments</strong>
+          </div>
+          <ul class="instruments-uses">
+            <li *ngFor="let instrument of gymDetails.availableInstruments">{{ instrument }}</li>
+          </ul>
+        </div>
+        <div class="item-habitat">
+          <div class="item-header">
+            <strong>Address:</strong>
+          </div>
+          <p>{{ gymDetails.address }}, {{ gymDetails.state }}, {{ gymDetails.city }}, {{ gymDetails.pincode }}</p>
+        </div>
+        <div class="item-contactNumber">
+          <div class="item-header">
+            <strong>Contact Number:</strong>
+          </div>
+          <p>{{ gymDetails.contactNumber }}</p>
+        </div>
+      </div>
+      <div *ngIf="!gymDetails">Loading plant details...</div>
+    </div>
+  </div>
+<app-footer></app-footer>

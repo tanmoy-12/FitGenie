@@ -1,0 +1,177 @@
+<div class="main">
+  <div class="left-section">
+    <div class="logo">
+      <span style="color: #fff;"><span style="color: var(--shade-1);">FIT</span>GENIE</span>
+    </div>
+    <div class="menu">
+      <div class="welcome">
+        <span>Welcome,<br><span style="color: var(--shade-1);">{{ userName }}</span></span>
+      </div>
+      <li class="dashboard-active">
+        <img src="dashboard.png" alt="" width="20px" />&nbsp;&nbsp;
+        <p>Dashboard</p>
+      </li>
+      <a [routerLink]="['']"
+        ><li>
+          <i class="fa-solid fa-house"></i>&nbsp;&nbsp;
+          <p>Home</p>
+        </li></a
+      >
+      <li (click)="logout()">
+        <i class="fa-solid fa-power-off"></i>&nbsp;&nbsp;
+        <p>Log Out</p>
+      </li>
+    </div>
+    <hr />
+  </div>
+  <div class="right-section">
+    <div class="welcome">
+      <h3>Welcome to your admin dashboard!</h3>
+    </div>
+    <div class="line"></div>
+    <div class="unVerifiedGymCentres">
+      <h4 style="color: var(--light);">Unverified Gym Centres</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>S No</th>
+            <th>Center Name</th>
+            <th>Center Head Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let gym of unVerifiedCentres; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ gym.centerName }}</td>
+            <td>{{ gym.centerHeadEmail }}</td>
+            <td>
+              <button (click)="showDetails(gym._id)">View</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="detailsPopup" *ngIf="isDetails">
+        <div class="popupContent">
+          <h4>Gym Details</h4>
+          <p>Name: {{ selectedGym.centerName }}</p>
+          <p>Address: {{ selectedGym.address }}</p>
+          <p>Phone Number: {{ selectedGym.contactNumber }}</p>
+          <p>Description: {{ selectedGym.details }}</p>
+          <p>Registration Number: {{ selectedGym.registrationNumber }}</p>
+          <button (click)="verifyGym(selectedGym._id)">Verify</button>
+          <button (click)="closeDetails()">Close</button>
+        </div>
+      </div>
+    </div>
+    <button (click)="showExerciseForm()" class="add-exercise">Add Exercise Details</button>
+    <div class="registrationForm" *ngIf="isExerciseForm">
+      <span class="cr">Add New Exercise Details</span>
+      <div class="line"></div>
+      <form #exerciseForm="ngForm" (ngSubmit)="submitExercise()" class="registrationForm">
+        <div class="form-group">
+          <label for="exerciseName">Exercise Name:</label>
+          <input type="text" id="exerciseName" [(ngModel)]="exerciseData.exerciseName" name="exerciseName" required class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label for="exerciseType">Exercise Type:</label>
+          <input type="text" id="exerciseType" [(ngModel)]="exerciseData.exerciseType" name="exerciseType" required class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label for="exerciseDuration">Duration (minutes):</label>
+          <input type="number" id="exerciseDuration" [(ngModel)]="exerciseData.exerciseDuration" name="exerciseDuration" required class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label for="exerciseMuscleGroup">Muscle Group:</label>
+          <input type="text" id="exerciseMuscleGroup" [(ngModel)]="exerciseData.exerciseMuscleGroup" name="exerciseMuscleGroup" required class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label for="difficultyLevel">Difficulty Level:</label>
+          <select id="difficultyLevel" [(ngModel)]="exerciseData.difficultyLevel" name="difficultyLevel" class="form-control" required>
+            <option value="">Select Difficulty</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exerciseCategory">Exercise Category:</label>
+          <input type="text" id="exerciseCategory" [(ngModel)]="exerciseData.exerciseCategory" name="exerciseCategory" required class="form-control" />
+        </div>
+
+        <div>
+          <div class="form-group-array">
+            <label>equipments:</label>
+            <button type="button" (click)="addField('equipments')">Add Equipment</button>
+          </div>
+          <div *ngFor="let img of exerciseData.equipments; let i = index; trackBy: trackByIndex" class="form-group fg1">
+            <input type="text" [(ngModel)]="exerciseData.equipments[i]" name="equipments{{ i }}" placeholder="Equipment URL" class="form-control" required />
+            <button type="button" (click)="removeField('equipments', i)">Remove</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="details">Details:</label>
+          <textarea id="details" [(ngModel)]="exerciseData.details" name="details" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="benefits">Benefits:</label>
+          <textarea id="benefits" [(ngModel)]="exerciseData.benefits" name="benefits" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="limitations">Limitations:</label>
+          <textarea id="limitations" [(ngModel)]="exerciseData.limitations" name="limitations" class="form-control"></textarea>
+        </div>
+
+        <div>
+          <div class="form-group-array">
+            <label>Images (URLs):</label>
+            <button type="button" (click)="addField('images')">Add Image</button>
+          </div>
+          <div *ngFor="let img of exerciseData.images; let i = index; trackBy: trackByIndex" class="form-group fg1">
+            <input type="text" [(ngModel)]="exerciseData.images[i]" name="images{{ i }}" placeholder="Image URL" class="form-control" required />
+            <button type="button" (click)="removeField('images', i)">Remove</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="form-group-array">
+            <label>Videos (URLs):</label>
+            <button type="button" (click)="addField('videos')">Add Video</button>
+          </div>
+          <div *ngFor="let vid of exerciseData.videos; let i = index; trackBy: trackByIndex" class="form-group fg1">
+            <input type="text" [(ngModel)]="exerciseData.videos[i]" name="videos{{ i }}" placeholder="Video URL" class="form-control" required />
+            <button type="button" (click)="removeField('videos', i)">Remove</button>
+          </div>
+        </div>
+        <div>
+          <div class="form-group-array">
+            <label>procedures:</label>
+            <button type="button" (click)="addField('procedures')">Add procedure</button>
+          </div>
+          <div *ngFor="let procedure of exerciseData.procedures; let i = index; trackBy: trackByIndex" class="form-group fg1">
+            <input type="text" [(ngModel)]="exerciseData.procedures[i]" name="procedures{{ i }}" placeholder="Procedure" class="form-control" required />
+            <button type="button" (click)="removeField('procedures', i)">Remove</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="precautions">Precautions:</label>
+          <textarea id="precautions" [(ngModel)]="exerciseData.precautions" name="precautions" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" [disabled]="!exerciseForm.form.valid">Submit</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+<app-footer></app-footer>

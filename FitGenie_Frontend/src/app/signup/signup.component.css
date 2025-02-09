@@ -1,0 +1,38 @@
+.valid {
+    color: green;
+  }
+
+  .invalid {
+    color: red;
+  }
+.checks li{
+    font-size: small;
+    list-style: none;
+    text-align: left;
+    width: 100%;
+}
+.checks ul{
+    padding-left: 0;
+}
+.notdisplay{
+    display: none;
+}
+#form1{
+  height: 550px !important;
+}
+.google-signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(255, 255, 255);
+  border: 1px solid #ddd;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 9999px;
+  margin: 16px auto;
+}
+
+.google-signup img {
+  width: 20px;
+  margin-right: 10px;
+}

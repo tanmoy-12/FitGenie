@@ -1,0 +1,9 @@
+<div *ngIf="message" class="notification {{ type }}">
+    <span class="icon">
+      <i *ngIf="type === 'success'" class="fa-solid fa-check"></i>
+      <i *ngIf="type === 'error'" class="fa-solid fa-x"></i>
+      <i *ngIf="type === 'info'" class="fa-solid fa-info"></i>
+    </span>
+    <span>{{ message }}</span>
+    <button (click)="closeNotification()">x</button>
+</div>

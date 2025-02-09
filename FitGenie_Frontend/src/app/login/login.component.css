@@ -1,0 +1,19 @@
+.google-signin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(255, 255, 255);
+  border: 1px solid #ddd;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 9999px;
+  margin: 16px auto;
+}
+
+.google-signin img {
+  width: 20px;
+  margin-right: 10px;
+}
+#fs1{
+  max-height: 500px;
+}
